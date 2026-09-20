@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ArtifyGH Editor</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --purple: #7c3aed;
+      --pink: #ec4899;
+      --dark: #171321;
+      --muted: #716a79;
+      --line: #e9e3ee;
+      --bg: #f5f3f7;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* TOP BAR */
+
+    .topbar {
+      height: 68px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .logo span {
+      color: var(--purple);
+    }
+
+    .editor-title {
+      font-weight: 800;
+      color: #4b4555;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .top-btn {
+      border: 1px solid var(--line);
+      background: white;
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .top-btn.primary {
+      border: none;
+      color: white;
+      background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--pink)
+      );
+    }
+
+    /* EDITOR */
+
+    .editor-layout {
+      min-height: calc(100vh - 68px);
+      display: grid;
+      grid-template-columns: 280px 1fr 280px;
+    }
+
+    /* LEFT PANEL */
+
+    .left-panel {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .panel-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 900;
+      color: #827b89;
+      margin-bottom: 14px;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .tool {
+      min-height: 82px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 800;
+      color: #403a48;
+      transition: 0.2s;
+    }
+
+    .tool:hover {
+      border-color: var(--purple);
+      color: var(--purple);
+      transform: translateY(-2px);
+    }
+
+    .tool-icon {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+
+    .upload-box {
+      border: 2px dashed #d8cfe1;
+      border-radius: 15px;
+      padding: 18px 12px;
+      text-align: center;
+      color: var(--muted);
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+
+    .upload-box:hover {
+      border-color: var(--purple);
+    }
+
+    .upload-box strong {
+      display: block;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    #imageUpload {
+      display: none;
+    }
+
+    .layers {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .layer {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #faf9fb;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .layer.selected {
+      border-color: var(--purple);
+      background: #f5efff;
+      color: var(--purple);
+    }
+
+    /* CANVAS */
+
+    .canvas-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      overflow: auto;
+    }
+
+    .canvas-info {
+      width: 100%;
+      max-width: 650px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      color: #817988;
+      font-size: 0.8rem;
+    }
+
+    .design-canvas {
+      width: min(520px, 90vw);
+      aspect-ratio: 4 / 5;
+      background: linear-gradient(
+        145deg,
+        #fff,
+        #f8edff
+      );
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 25px 70px rgba(30, 20, 50, 0.18);
+    }
+
+    .canvas-decoration {
+      position: absolute;
+      border: 1px solid #d8b4fe;
+      border-radius: 50%;
+      width: 260px;
+      height: 260px;
+    }
+
+    .decoration-one {
+      top: -145px;
+      left: -105px;
+    }
+
+    .decoration-two {
+      bottom: -145px;
+      right: -105px;
+    }
+
+    .canvas-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .canvas-small {
+      color: #8b5cf6;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      font-weight: 900;
+    }
+
+    .canvas-heading {
+      font-family: Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1;
+      margin: 18px 0 12px;
+      outline: none;
+      cursor: text;
+    }
+
+    .canvas-details {
+      color: #6f6877;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      outline: none;
+      cursor: text;
+    }
+
+    .uploaded-image {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      top: 25px;
+      right: 25px;
+      border-radius: 12px;
+      display: none;
+      cursor: move;
+    }
+
+    /* RIGHT PANEL */
+
+    .right-panel {
+      background: white;
+      border-left: 1px solid var(--line);
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .property-group {
+      margin-bottom: 24px;
+    }
+
+    .property-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #625b6b;
+      margin-bottom: 8px;
+    }
+
+    .property-input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 11px;
+      font: inherit;
+      outline: none;
+    }
+
+    .property-input:focus {
+      border-color: var(--purple);
+    }
+
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #textColor {
+      width: 55px;
+      height: 40px;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .delete-btn {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      background: #fff5f5;
+      border-radius: 10px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 1000px) {
+      .editor-layout {
+        grid-template-columns: 230px 1fr;
+      }
+
+      .right-panel {
+        display: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .editor-layout {
+        display: block;
+      }
+
+      .left-panel {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .tool-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .canvas-area {
+        padding: 20px 10px;
+        min-height: 75vh;
+      }
+
+      .editor-title {
+        display: none;
+      }
+
+      .topbar {
+        padding: 0 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tool-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .canvas-content {
+        padding: 30px;
+      }
+
+      .canvas-heading {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+
+    <a href="index.html" class="logo">
+      Artify<span>GH</span>
+    </a>
+
+    <div class="editor-title">
+      Design Editor
+    </div>
+
+    <div class="top-actions">
+
+      <button
+        class="top-btn"
+        onclick="window.location.href='index.html#templates'"
+      >
+        Exit
+      </button>
+
+      <button
+        class="top-btn primary"
+        onclick="saveDesign()"
+      >
+        Save Design
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main class="editor-layout">
+
+    <!-- LEFT PANEL -->
+    <aside class="left-panel">
+
+      <div class="panel-title">
+        Add elements
+      </div>
+
+      <div class="tool-grid">
+
+        <button class="tool" onclick="addText()">
+          <span class="tool-icon">T</span>
+          Text
+        </button>
+
+        <button
+          class="tool"
+          onclick="document.getElementById('imageUpload').click()"
+        >
+          <span class="tool-icon">🖼️</span>
+          Image
+        </button>
+
+        <button
+          class="tool"
+          onclick="document.getElementById('imageUpload').click()"
+        >
+          <span class="tool-icon">🏷️</span>
+          Logo
+        </button>
+
+        <button
+          class="tool"
+          onclick="addShape()"
+        >
+          <span class="tool-icon">⬜</span>
+          Shape
+        </button>
+
+      </div>
+
+
+      <!-- IMAGE UPLOAD -->
+      <label class="upload-box">
+
+        <strong>
+          Upload image or logo
+        </strong>
+
+        Tap here to choose an image from your device.
+
+        <input
+          id="imageUpload"
+          type="file"
+          accept="image/*"
+          onchange="handleImageUpload(event)"
+        >
+
+      </label>
+
+
+      <!-- LAYERS -->
+      <div class="panel-title">
+        Layers
+      </div>
+
+      <div id="layers" class="layers">
+
+        <div class="layer selected">
+          Main heading
+        </div>
+
+        <div class="layer">
+          Event details
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- CANVAS -->
+    <section class="canvas-area">
+
+      <div class="canvas-info">
+
+        <span>
+          Live preview
+        </span>
+
+        <span>
+          4:5 design
+        </span>
+
+      </div>
+
+
+      <div
+        id="designCanvas"
+        class="design-canvas"
+      >
+
+        <div class="canvas-decoration decoration-one"></div>
+
+        <div class="canvas-decoration decoration-two"></div>
+
+
+        <img
+          id="uploadedImage"
+          class="uploaded-image"
+          alt="Uploaded design image"
+        >
+
+
+        <div class="canvas-content">
+
+          <div class="canvas-small">
+            YOU'RE INVITED
+          </div>
+
+          <div
+            id="mainHeading"
+            class="canvas-heading"
+            contenteditable="true"
+            onclick="selectElement('heading')"
+          >
+            Forever Begins
+          </div>
+
+          <div
+            id="eventDetails"
+            class="canvas-details"
+            contenteditable="true"
+            onclick="selectElement('details')"
+          >
+            Kwame & Ama<br>
+            14 November 2026<br>
+            4:00 PM · Accra
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- RIGHT PANEL -->
+    <aside class="right-panel">
+
+      <div class="panel-title">
+        Edit element
+      </div>
+
+
+      <div class="property-group">
+
+        <label class="property-label">
+          Text
+        </label>
+
+        <input
+          id="textInput"
+          class="property-input"
+          type="text"
+          placeholder="Select text on design"
+          oninput="updateSelectedText(this.value)"
+        >
+
+      </div>
+
+
+      <div class="property-group">
+
+        <label class="property-label">
+          Text color
+        </label>
+
+        <div class="color-row">
+
+          <input
+            id="textColor"
+            type="color"
+            value="#171321"
+            onchange="changeTextColor(this.value)"
+          >
+
+          <span>
+            Change selected text
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="property-group">
+
+        <label class="property-label">
+          Font size
+        </label>
+
+        <input
+          id="fontSize"
+          class="property-input"
+          type="number"
+          min="8"
+          max="100"
+          value="32"
+          onchange="changeFontSize(this.value)"
+        >
+
+      </div>
+
+
+      <div class="property-group">
+
+        <label class="property-label">
+          Event email
+        </label>
+
+        <input
+          id="emailInput"
+          class="property-input"
+          type="email"
+          placeholder="example@email.com"
+        >
+
+      </div>
+
+
+      <div class="property-group">
+
+        <label class="property-label">
+          WhatsApp / Phone
+        </label>
+
+        <input
+          id="phoneInput"
+          class="property-input"
+          type="text"
+          placeholder="024 XXX XXXX"
+        >
+
+      </div>
+
+
+      <button
+        class="delete-btn"
+        onclick="deleteSelected()"
+      >
+        🗑️ Delete selected element
+      </button>
+
+    </aside>
+
+  </main>
+
+
+  <script>
+
+    let selectedElement = null;
+
+
+    /* SELECT ELEMENT */
+
+    function selectElement(type) {
+
+      if (type === "heading") {
+
+        selectedElement =
+          document.getElementById("mainHeading");
+
+        document.getElementById("textInput").value =
+          selectedElement.innerText;
+
+        document.getElementById("fontSize").value =
+          parseInt(
+            window.getComputedStyle(selectedElement).fontSize
+          );
+
+      }
+
+
+      if (type === "details") {
+
+        selectedElement =
+          document.getElementById("eventDetails");
+
+        document.getElementById("textInput").value =
+          selectedElement.innerText;
+
+        document.getElementById("fontSize").value =
+          parseInt(
+            window.getComputedStyle(selectedElement).fontSize
+          );
+
+      }
+
+    }
+
+
+    /* UPDATE TEXT */
+
+    function updateSelectedText(value) {
+
+      if (!selectedElement) return;
+
+      selectedElement.innerText = value;
+
+    }
+
+
+    /* CHANGE COLOR */
+
+    function changeTextColor(color) {
+
+      if (!selectedElement) return;
+
+      selectedElement.style.color = color;
+
+    }
+
+
+    /* CHANGE FONT SIZE */
+
+    function changeFontSize(size) {
+
+      if (!selectedElement) return;
+
+      selectedElement.style.fontSize =
+        Number(size) + "px";
+
+    }
+
+
+    /* ADD TEXT */
+
+    function addText() {
+
+      const newText =
+        document.createElement("div");
+
+      newText.contentEditable = "true";
+
+      newText.innerText =
+        "New Text";
+
+      newText.style.position =
+        "absolute";
+
+      newText.style.left =
+        "50%";
+
+      newText.style.top =
+        "72%";
+
+      newText.style.transform =
+        "translateX(-50%)";
+
+      newText.style.fontWeight =
+        "700";
+
+      newText.style.fontSize =
+        "24px";
+
+      newText.style.cursor =
+        "text";
+
+      newText.style.zIndex =
+        "10";
+
+      newText.onclick = function() {
+
+        selectedElement = newText;
+
+        document.getElementById("textInput").value =
+          newText.innerText;
+
+      };
+
+      document
+        .getElementById("designCanvas")
+        .appendChild(newText);
+
+      selectedElement = newText;
+
+      document.getElementById("textInput").value =
+        newText.innerText;
+
+    }
+
+
+    /* ADD SHAPE */
+
+    function addShape() {
+
+      const shape =
+        document.createElement("div");
+
+      shape.style.position =
+        "absolute";
+
+      shape.style.width =
+        "90px";
+
+      shape.style.height =
+        "90px";
+
+      shape.style.border =
+        "3px solid #7c3aed";
+
+      shape.style.borderRadius =
+        "50%";
+
+      shape.style.left =
+        "20px";
+
+      shape.style.bottom =
+        "20px";
+
+      shape.style.zIndex =
+        "5";
+
+      shape.onclick = function() {
+
+        selectedElement = shape;
+
+      };
+
+      document
+        .getElementById("designCanvas")
+        .appendChild(shape);
+
+      selectedElement = shape;
+
+    }
+
+
+    /* IMAGE UPLOAD */
+
+    function handleImageUpload(event) {
+
+      const file =
+        event.target.files[0];
+
+      if (!file) return;
+
+      const reader =
+        new FileReader();
+
+      reader.onload = function(e) {
+
+        const image =
+          document.getElementById("uploadedImage");
+
+        image.src =
+          e.target.result;
+
+        image.style.display =
+          "block";
+
+        selectedElement =
+          image;
+
+      };
+
+      reader.readAsDataURL(file);
+
+    }
+
+
+    /* DELETE */
+
+    function deleteSelected() {
+
+      if (!selectedElement) return;
+
+      if (
+        selectedElement.id === "mainHeading" ||
+        selectedElement.id === "eventDetails"
+      ) {
+
+        selectedElement.innerText =
+          "";
+
+      } else {
+
+        selectedElement.remove();
+
+      }
+
+      selectedElement = null;
+
+      document.getElementById("textInput").value =
+        "";
+
+    }
+
+
+    /* SAVE */
+
+    function saveDesign() {
+
+      alert(
+        "Your design is currently saved in this browser. " +
+        "The ArtifyGH customer account and cloud-saving system " +
+        "will be connected next."
+      );
+
+    }
+
+
+    /* LOAD TEMPLATE */
+
+    const params =
+      new URLSearchParams(window.location.search);
+
+    const template =
+      params.get("template");
+
+    if (template) {
+
+      document.title =
+        template + " — ArtifyGH Editor";
+
+    }
+
+  </script>
+
+</body>
+</html>
