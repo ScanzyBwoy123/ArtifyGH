@@ -584,105 +584,710 @@
         </div>
       </div>
     </section>
-    <!-- FEATURED TEMPLATES -->
-    <section id="templates">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>
-              Featured templates
-            </h2>
-          </div>
-          <p>
-            Our first collection. Each template will become
-            customizable as we build the editor.
-          </p>
-        </div>
-        <div class="templates">
-          <!-- TEMPLATE 1 -->
-          <article class="template">
-            <div class="preview one">
-              <div class="mini">
-                <small>
-                  Wedding invitation
-                </small>
-                <strong>
-                  Forever Begins
-                </strong>
-                <span>
-                  Kwame & Ama · 14 Nov 2026
-                </span>
-              </div>
-            </div>
-            <div class="template-info">
-              <h3>
-                Forever Begins
-              </h3>
-              <p>
-                Elegant wedding invitation
-              </p>
-              <span class="price">
-                From GH₵10
-              </span>
-            </div>
-          </article>
-          <!-- TEMPLATE 2 -->
-          <article class="template">
-            <div class="preview two">
-              <div class="mini">
-                <small>
-                  Birthday celebration
-                </small>
-                <strong>
-                  It's My Day!
-                </strong>
-                <span>
-                  Join us for an unforgettable celebration
-                </span>
-              </div>
-            </div>
-            <div class="template-info">
-              <h3>
-                It's My Day
-              </h3>
-              <p>
-                Modern birthday invitation
-              </p>
-              <span class="price">
-                From GH₵5
-              </span>
-            </div>
-          </article>
-          <!-- TEMPLATE 3 -->
-          <article class="template">
-            <div class="preview three">
-              <div class="mini">
-                <small>
-                  Entertainment
-                </small>
-                <strong>
-                  Live Night
-                </strong>
-                <span>
-                  Music · DJs · Good vibes
-                </span>
-              </div>
-            </div>
-            <div class="template-info">
-              <h3>
-                Live Night
-              </h3>
-              <p>
-                Party & entertainment flyer
-              </p>
-              <span class="price">
-                From GH₵10
-              </span>
-            </div>
-          </article>
-        </div>
+    <!-- TEMPLATE MARKETPLACE -->
+<section id="templates">
+
+  <div class="container">
+
+    <div class="section-head">
+      <div>
+        <h2>Find your perfect design.</h2>
       </div>
-    </section>
+
+      <p>
+        Choose a design, personalize it with your own details,
+        and get it ready to share.
+      </p>
+    </div>
+
+    <!-- CATEGORY FILTERS -->
+    <div class="template-filters">
+
+      <button class="filter-btn active" data-filter="all">
+        All Designs
+      </button>
+
+      <button class="filter-btn" data-filter="wedding">
+        💍 Weddings
+      </button>
+
+      <button class="filter-btn" data-filter="birthday">
+        🎂 Birthdays
+      </button>
+
+      <button class="filter-btn" data-filter="naming">
+        👶 Naming Ceremony
+      </button>
+
+      <button class="filter-btn" data-filter="graduation">
+        🎓 Graduation
+      </button>
+
+      <button class="filter-btn" data-filter="entertainment">
+        🎵 Entertainment
+      </button>
+
+      <button class="filter-btn" data-filter="business">
+        🏢 Business
+      </button>
+
+    </div>
+
+
+    <!-- TEMPLATE GRID -->
+    <div class="marketplace-grid">
+
+
+      <!-- WEDDING -->
+      <article
+        class="market-template"
+        data-category="wedding"
+      >
+
+        <div class="design-preview wedding-preview">
+
+          <div class="design-card">
+
+            <small>YOU'RE INVITED</small>
+
+            <h3>
+              Forever
+              <br>
+              Begins
+            </h3>
+
+            <span>
+              KWAME & AMA
+            </span>
+
+            <p>
+              14 NOVEMBER 2026
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="market-info">
+
+          <div>
+            <span class="design-category">
+              Wedding
+            </span>
+
+            <h3>
+              Forever Begins
+            </h3>
+
+            <p>
+              Elegant wedding invitation
+            </p>
+          </div>
+
+          <strong class="design-price">
+            GH₵10
+          </strong>
+
+        </div>
+
+        <button
+          class="customize-btn"
+          onclick="startCustomization('Forever Begins', 'GH₵10')"
+        >
+          Customize
+        </button>
+
+      </article>
+
+
+      <!-- BIRTHDAY -->
+      <article
+        class="market-template"
+        data-category="birthday"
+      >
+
+        <div class="design-preview birthday-preview">
+
+          <div class="design-card">
+
+            <small>COME CELEBRATE</small>
+
+            <h3>
+              It's
+              <br>
+              My Day!
+            </h3>
+
+            <span>
+              BIRTHDAY PARTY
+            </span>
+
+            <p>
+              MUSIC · FOOD · FUN
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="market-info">
+
+          <div>
+            <span class="design-category">
+              Birthday
+            </span>
+
+            <h3>
+              It's My Day
+            </h3>
+
+            <p>
+              Modern birthday invitation
+            </p>
+          </div>
+
+          <strong class="design-price">
+            GH₵5
+          </strong>
+
+        </div>
+
+        <button
+          class="customize-btn"
+          onclick="startCustomization('It’s My Day', 'GH₵5')"
+        >
+          Customize
+        </button>
+
+      </article>
+
+
+      <!-- NAMING CEREMONY -->
+      <article
+        class="market-template"
+        data-category="naming"
+      >
+
+        <div class="design-preview naming-preview">
+
+          <div class="design-card">
+
+            <small>WELCOME TO THE</small>
+
+            <h3>
+              Naming
+              <br>
+              Ceremony
+            </h3>
+
+            <span>
+              BABY CELEBRATION
+            </span>
+
+            <p>
+              FAMILY · LOVE · JOY
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="market-info">
+
+          <div>
+            <span class="design-category">
+              Naming Ceremony
+            </span>
+
+            <h3>
+              Little Blessing
+            </h3>
+
+            <p>
+              Beautiful naming ceremony invite
+            </p>
+          </div>
+
+          <strong class="design-price">
+            GH₵7
+          </strong>
+
+        </div>
+
+        <button
+          class="customize-btn"
+          onclick="startCustomization('Little Blessing', 'GH₵7')"
+        >
+          Customize
+        </button>
+
+      </article>
+
+
+      <!-- GRADUATION -->
+      <article
+        class="market-template"
+        data-category="graduation"
+      >
+
+        <div class="design-preview graduation-preview">
+
+          <div class="design-card">
+
+            <small>THE JOURNEY</small>
+
+            <h3>
+              Class of
+              <br>
+              2026
+            </h3>
+
+            <span>
+              GRADUATION CELEBRATION
+            </span>
+
+            <p>
+              DREAM · ACHIEVE · CELEBRATE
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="market-info">
+
+          <div>
+            <span class="design-category">
+              Graduation
+            </span>
+
+            <h3>
+              Class of 2026
+            </h3>
+
+            <p>
+              Graduation celebration design
+            </p>
+          </div>
+
+          <strong class="design-price">
+            GH₵7
+          </strong>
+
+        </div>
+
+        <button
+          class="customize-btn"
+          onclick="startCustomization('Class of 2026', 'GH₵7')"
+        >
+          Customize
+        </button>
+
+      </article>
+
+
+      <!-- ENTERTAINMENT -->
+      <article
+        class="market-template"
+        data-category="entertainment"
+      >
+
+        <div class="design-preview entertainment-preview">
+
+          <div class="design-card">
+
+            <small>ONE NIGHT ONLY</small>
+
+            <h3>
+              LIVE
+              <br>
+              NIGHT
+            </h3>
+
+            <span>
+              MUSIC · DJ · PARTY
+            </span>
+
+            <p>
+              GOOD VIBES ONLY
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="market-info">
+
+          <div>
+            <span class="design-category">
+              Entertainment
+            </span>
+
+            <h3>
+              Live Night
+            </h3>
+
+            <p>
+              Party and entertainment flyer
+            </p>
+          </div>
+
+          <strong class="design-price">
+            GH₵10
+          </strong>
+
+        </div>
+
+        <button
+          class="customize-btn"
+          onclick="startCustomization('Live Night', 'GH₵10')"
+        >
+          Customize
+        </button>
+
+      </article>
+
+
+      <!-- BUSINESS -->
+      <article
+        class="market-template"
+        data-category="business"
+      >
+
+        <div class="design-preview business-preview">
+
+          <div class="design-card">
+
+            <small>YOUR BUSINESS</small>
+
+            <h3>
+              BIG
+              <br>
+              OFFER
+            </h3>
+
+            <span>
+              SPECIAL PROMOTION
+            </span>
+
+            <p>
+              SHOP · ORDER · ENJOY
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="market-info">
+
+          <div>
+            <span class="design-category">
+              Business
+            </span>
+
+            <h3>
+              Big Offer
+            </h3>
+
+            <p>
+              Business promotional flyer
+            </p>
+          </div>
+
+          <strong class="design-price">
+            GH₵8
+          </strong>
+
+        </div>
+
+        <button
+          class="customize-btn"
+          onclick="startCustomization('Big Offer', 'GH₵8')"
+        >
+          Customize
+        </button>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TEMPLATE MARKETPLACE STYLES -->
+<style>
+
+  .template-filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .filter-btn {
+    border: 1px solid var(--line);
+    background: #fff;
+    color: #514b5d;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+  }
+
+  .filter-btn.active {
+    background: var(--brand);
+    color: #fff;
+    border-color: var(--brand);
+  }
+
+  .marketplace-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .market-template {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    overflow: hidden;
+    transition: 0.25s ease;
+  }
+
+  .market-template:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(30, 20, 50, 0.11);
+  }
+
+  .design-preview {
+    aspect-ratio: 4 / 3;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .wedding-preview {
+    background: linear-gradient(135deg, #fce7f3, #f5d0fe);
+  }
+
+  .birthday-preview {
+    background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+  }
+
+  .naming-preview {
+    background: linear-gradient(135deg, #dbeafe, #e0f2fe);
+  }
+
+  .graduation-preview {
+    background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+  }
+
+  .entertainment-preview {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+  }
+
+  .business-preview {
+    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  }
+
+  .design-card {
+    width: 72%;
+    min-height: 88%;
+    background: #fff;
+    border-radius: 12px;
+    padding: 22px 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  }
+
+  .design-card small {
+    font-size: 0.52rem;
+    letter-spacing: 0.18em;
+    color: #8b5cf6;
+    font-weight: 800;
+  }
+
+  .design-card h3 {
+    font-family: Georgia, serif;
+    font-size: 1.45rem;
+    line-height: 1.05;
+    margin: 10px 0;
+  }
+
+  .design-card span {
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+    font-weight: 800;
+  }
+
+  .design-card p {
+    font-size: 0.54rem;
+    color: #777;
+    margin-top: 8px;
+  }
+
+  .market-info {
+    padding: 18px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  .design-category {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--brand);
+    font-weight: 800;
+  }
+
+  .market-info h3 {
+    font-size: 1rem;
+    margin-top: 4px;
+  }
+
+  .market-info p {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .design-price {
+    white-space: nowrap;
+    color: var(--brand);
+    font-size: 0.95rem;
+  }
+
+  .customize-btn {
+    width: calc(100% - 36px);
+    margin: 0 18px 18px;
+    padding: 12px;
+    border: 0;
+    border-radius: 12px;
+    background: #171321;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .customize-btn:hover {
+    background: var(--brand);
+    transform: translateY(-1px);
+  }
+
+  .market-template.hidden {
+    display: none;
+  }
+
+  @media (max-width: 850px) {
+
+    .marketplace-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+  }
+
+  @media (max-width: 560px) {
+
+    .marketplace-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .template-filters {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: 6px;
+    }
+
+    .filter-btn {
+      flex-shrink: 0;
+    }
+
+  }
+
+</style>
+
+
+<!-- TEMPLATE FILTER + CUSTOMIZE SCRIPT -->
+<script>
+
+  const filterButtons =
+    document.querySelectorAll(".filter-btn");
+
+  const marketTemplates =
+    document.querySelectorAll(".market-template");
+
+
+  filterButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const selectedCategory =
+        button.getAttribute("data-filter");
+
+
+      filterButtons.forEach(btn => {
+        btn.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+
+      marketTemplates.forEach(template => {
+
+        const templateCategory =
+          template.getAttribute("data-category");
+
+
+        if (
+          selectedCategory === "all" ||
+          templateCategory === selectedCategory
+        ) {
+
+          template.classList.remove("hidden");
+
+        } else {
+
+          template.classList.add("hidden");
+
+        }
+
+      });
+
+    });
+
+  });
+
+
+  function startCustomization(name, price) {
+
+    alert(
+      "You selected " +
+      name +
+      " (" +
+      price +
+      ").\n\n" +
+      "The ArtifyGH customization editor is coming next."
+    );
+
+  }
+
+</script>
     <!-- HOW IT WORKS -->
     <section id="how">
       <div class="container">
