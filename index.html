@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="ArtifyGH — Create beautiful digital invitations, event flyers and creative designs in minutes."
+  >
+  <title>ArtifyGH — Create. Personalize. Celebrate.</title>
+  <style>
+    :root {
+      --ink: #171321;
+      --muted: #6d6878;
+      --brand: #7c3aed;
+      --brand-dark: #5b21b6;
+      --pink: #ec4899;
+      --cream: #fffaf7;
+      --white: #ffffff;
+      --line: #eee8f3;
+      --soft-purple: #f3e8ff;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.5;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+    /* NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 250, 247, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(238, 232, 243, 0.8);
+    }
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .logo {
+      font-size: 1.45rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+    }
+    .logo span {
+      color: var(--brand);
+    }
+    .navlinks {
+      display: flex;
+      gap: 28px;
+      color: #514b5d;
+      font-size: 0.95rem;
+      font-weight: 650;
+    }
+    .navlinks a {
+      transition: 0.2s;
+    }
+    .navlinks a:hover {
+      color: var(--brand);
+    }
+    /* BUTTONS */
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 21px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), var(--pink));
+      box-shadow: 0 12px 28px rgba(124, 58, 237, 0.22);
+    }
+    .btn-light {
+      background: var(--white);
+      border: 1px solid var(--line);
+    }
+    /* HERO */
+    .hero {
+      padding: 82px 0 62px;
+      background:
+        radial-gradient(
+          circle at 85% 20%,
+          #f3ddff 0,
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 10% 20%,
+          #ffe4ef 0,
+          transparent 28%
+        );
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 54px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: var(--soft-purple);
+      color: #6d28d9;
+      font-weight: 800;
+      font-size: 0.8rem;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: clamp(3rem, 6vw, 5.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.065em;
+      max-width: 680px;
+    }
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(
+        135deg,
+        var(--brand),
+        var(--pink)
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p {
+      font-size: 1.12rem;
+      color: var(--muted);
+      max-width: 570px;
+      margin: 23px 0 30px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    /* INVITATION SHOWCASE */
+    .showcase {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 18px;
+      box-shadow: 0 24px 70px rgba(35, 20, 55, 0.12);
+      transform: rotate(1deg);
+    }
+    .invite {
+      aspect-ratio: 4 / 5;
+      background: linear-gradient(
+        145deg,
+        #fff,
+        #f8edff
+      );
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .invite::before,
+    .invite::after {
+      content: "";
+      position: absolute;
+      border: 1px solid #d8b4fe;
+      border-radius: 50%;
+      width: 230px;
+      height: 230px;
+    }
+    .invite::before {
+      top: -120px;
+      left: -90px;
+    }
+    .invite::after {
+      bottom: -120px;
+      right: -90px;
+    }
+    .invite-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .invite small {
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      font-weight: 800;
+    }
+    .invite h2 {
+      font-family: Georgia, serif;
+      font-size: 2.35rem;
+      margin: 16px 0 8px;
+    }
+    .invite p {
+      color: #716a79;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    /* SECTIONS */
+    section {
+      padding: 78px 0;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 30px;
+    }
+    .section-head h2 {
+      font-size: 2.25rem;
+      letter-spacing: -0.04em;
+    }
+    .section-head p {
+      color: var(--muted);
+      max-width: 500px;
+    }
+    /* CATEGORIES */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+    .cat {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 23px 18px;
+      transition: 0.2s;
+    }
+    .cat:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(30, 20, 50, 0.08);
+    }
+    .cat .icon {
+      font-size: 1.8rem;
+    }
+    .cat h3 {
+      font-size: 1rem;
+      margin: 12px 0 4px;
+    }
+    .cat p {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    /* TEMPLATES */
+    .templates {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .template {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      transition: 0.2s;
+    }
+    .template:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(30, 20, 50, 0.1);
+    }
+    .preview {
+      aspect-ratio: 4 / 3;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .preview.one {
+      background: #fce7f3;
+    }
+    .preview.two {
+      background: #ede9fe;
+    }
+    .preview.three {
+      background: #fef3c7;
+    }
+    .mini {
+      width: 72%;
+      height: 82%;
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .mini small {
+      font-size: 0.55rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .mini strong {
+      font-family: Georgia, serif;
+      font-size: 1.35rem;
+      margin: 8px 0;
+    }
+    .mini span {
+      font-size: 0.62rem;
+      color: #777;
+    }
+    .template-info {
+      padding: 17px 18px;
+    }
+    .template-info h3 {
+      font-size: 1rem;
+    }
+    .template-info p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 3px 0 13px;
+    }
+    .price {
+      font-weight: 900;
+      color: var(--brand);
+    }
+    /* HOW IT WORKS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .step {
+      padding: 28px;
+      border-radius: 22px;
+      background: #171321;
+      color: #fff;
+    }
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        var(--brand),
+        var(--pink)
+      );
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+    .step p {
+      color: #c7c1ce;
+      font-size: 0.9rem;
+      margin-top: 7px;
+    }
+    /* CTA */
+    .cta {
+      background: linear-gradient(
+        135deg,
+        #25153b,
+        #7c3aed
+      );
+      color: #fff;
+      border-radius: 32px;
+      padding: 54px;
+      text-align: center;
+    }
+    .cta h2 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      letter-spacing: -0.05em;
+    }
+    .cta p {
+      color: #e7dff0;
+      margin: 12px auto 24px;
+      max-width: 560px;
+    }
+    .cta .btn {
+      background: #fff;
+      color: var(--brand-dark);
+    }
+    /* FOOTER */
+    footer {
+      padding: 30px 0;
+      color: #777;
+      font-size: 0.85rem;
+      border-top: 1px solid var(--line);
+    }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    /* MOBILE */
+    @media (max-width: 850px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .templates {
+        grid-template-columns: 1fr 1fr;
+      }
+      .steps {
+        grid-template-columns: 1fr;
+      }
+      .navlinks {
+        display: none;
+      }
+    }
+    @media (max-width: 560px) {
+      nav {
+        min-height: 64px;
+      }
+      .hero {
+        padding: 55px 0 40px;
+      }
+      section {
+        padding: 55px 0;
+      }
+      .categories,
+      .templates {
+        grid-template-columns: 1fr;
+      }
+      .section-head {
+        display: block;
+      }
+      .section-head p {
+        margin-top: 8px;
+      }
+      .cta {
+        padding: 38px 22px;
+      }
+      .showcase {
+        margin-top: 8px;
+      }
+      footer .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <nav>
+        <a class="logo" href="#">
+          Artify<span>GH</span>
+        </a>
+        <div class="navlinks">
+          <a href="#templates">Templates</a>
+          <a href="#categories">Categories</a>
+          <a href="#how">How it works</a>
+        </div>
+        <a class="btn btn-primary" href="#templates">
+          Create a Design
+        </a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">
+            🇬🇭 Made for celebrations in Ghana
+          </div>
+          <h1>
+            Beautiful designs for your
+            <em>big moments.</em>
+          </h1>
+          <p>
+            Create stunning digital invitations, event flyers
+            and creative designs in minutes. Choose a template,
+            personalize it, and get it ready to share.
+          </p>
+          <div class="actions">
+            <a
+              class="btn btn-primary"
+              href="#templates"
+            >
+              Explore Templates
+            </a>
+            <a
+              class="btn btn-light"
+              href="#how"
+            >
+              How it works
+            </a>
+          </div>
+        </div>
+        <!-- INVITATION PREVIEW -->
+        <div class="showcase">
+          <div class="invite">
+            <div class="invite-inner">
+              <small>
+                You're invited
+              </small>
+              <h2>
+                Forever Begins
+              </h2>
+              <p>
+                A celebration of love
+                <br>
+                Kwame & Ama · 14 Nov 2026
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CATEGORIES -->
+    <section id="categories">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>
+              Design for every occasion.
+            </h2>
+          </div>
+          <p>
+            Start with a ready-made design and make it yours.
+            More categories and templates will be added as
+            ArtifyGH grows.
+          </p>
+        </div>
+        <div class="categories">
+          <a class="cat" href="#templates">
+            <div class="icon">💍</div>
+            <h3>Weddings</h3>
+            <p>Invitations & save-the-dates</p>
+          </a>
+          <a class="cat" href="#templates">
+            <div class="icon">🎂</div>
+            <h3>Celebrations</h3>
+            <p>Birthdays & special moments</p>
+          </a>
+          <a class="cat" href="#templates">
+            <div class="icon">🎵</div>
+            <h3>Entertainment</h3>
+            <p>Parties, concerts & artists</p>
+          </a>
+          <a class="cat" href="#templates">
+            <div class="icon">🎓</div>
+            <h3>Graduation</h3>
+            <p>Celebrate the achievement</p>
+          </a>
+          <a class="cat" href="#templates">
+            <div class="icon">🏢</div>
+            <h3>Business</h3>
+            <p>Flyers & promotions</p>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- FEATURED TEMPLATES -->
+    <section id="templates">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>
+              Featured templates
+            </h2>
+          </div>
+          <p>
+            Our first collection. Each template will become
+            customizable as we build the editor.
+          </p>
+        </div>
+        <div class="templates">
+          <!-- TEMPLATE 1 -->
+          <article class="template">
+            <div class="preview one">
+              <div class="mini">
+                <small>
+                  Wedding invitation
+                </small>
+                <strong>
+                  Forever Begins
+                </strong>
+                <span>
+                  Kwame & Ama · 14 Nov 2026
+                </span>
+              </div>
+            </div>
+            <div class="template-info">
+              <h3>
+                Forever Begins
+              </h3>
+              <p>
+                Elegant wedding invitation
+              </p>
+              <span class="price">
+                From GH₵10
+              </span>
+            </div>
+          </article>
+          <!-- TEMPLATE 2 -->
+          <article class="template">
+            <div class="preview two">
+              <div class="mini">
+                <small>
+                  Birthday celebration
+                </small>
+                <strong>
+                  It's My Day!
+                </strong>
+                <span>
+                  Join us for an unforgettable celebration
+                </span>
+              </div>
+            </div>
+            <div class="template-info">
+              <h3>
+                It's My Day
+              </h3>
+              <p>
+                Modern birthday invitation
+              </p>
+              <span class="price">
+                From GH₵5
+              </span>
+            </div>
+          </article>
+          <!-- TEMPLATE 3 -->
+          <article class="template">
+            <div class="preview three">
+              <div class="mini">
+                <small>
+                  Entertainment
+                </small>
+                <strong>
+                  Live Night
+                </strong>
+                <span>
+                  Music · DJs · Good vibes
+                </span>
+              </div>
+            </div>
+            <div class="template-info">
+              <h3>
+                Live Night
+              </h3>
+              <p>
+                Party & entertainment flyer
+              </p>
+              <span class="price">
+                From GH₵10
+              </span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>
+              Simple from start to finish.
+            </h2>
+          </div>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">
+              1
+            </div>
+            <h3>
+              Choose
+            </h3>
+            <p>
+              Browse ArtifyGH templates and find a design
+              that fits your occasion.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">
+              2
+            </div>
+            <h3>
+              Personalize
+            </h3>
+            <p>
+              Add your names, date, venue and other event
+              details with a live preview.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">
+              3
+            </div>
+            <h3>
+              Download & share
+            </h3>
+            <p>
+              Pay securely and receive your finished digital
+              design, ready for WhatsApp and social media.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CTA -->
+    <section>
+      <div class="container">
+        <div class="cta">
+          <h2>
+            Your next celebration deserves ArtifyGH.
+          </h2>
+          <p>
+            Beautiful digital designs without the stress
+            of starting from scratch.
+          </p>
+          <a
+            class="btn"
+            href="#templates"
+          >
+            Start Creating
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <span>
+        © 2026 ArtifyGH
+      </span>
+      <span>
+        Create. Personalize. Celebrate.
+      </span>
+    </div>
+  </footer>
+</body>
+</html>
