@@ -1276,16 +1276,13 @@
 
   function startCustomization(name, price) {
 
-    alert(
-      "You selected " +
-      name +
-      " (" +
-      price +
-      ").\n\n" +
-      "The ArtifyGH customization editor is coming next."
-    );
+  window.location.href =
+    "editor.html?template=" +
+    encodeURIComponent(name) +
+    "&price=" +
+    encodeURIComponent(price);
 
-  }
+}
 
 </script>
     <!-- HOW IT WORKS -->
